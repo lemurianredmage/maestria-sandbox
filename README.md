@@ -1,15 +1,11 @@
-# maestria-sandbox
+# Tattoo Verification Project Sandbox
 
-Este es un sandbox para pruebas de proyecto de maestria
+This is a sandbox for a tattoo verification project.
 
-### Prerequisites
+## Prerequisites
 
-- Inside project folder
 - Install miniconda with brew `brew install miniconda`
+- Go to project folder
 - To setup a local conda environment
   - if **environment.yml** exists, run `make env-recreate`
   - if **environment.yml** does not exist, run `make env-setup`
-
-### Run Environment
-
-- To activate environment, run `conda activate ./env`
