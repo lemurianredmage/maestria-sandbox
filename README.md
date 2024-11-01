@@ -27,3 +27,4 @@ eval "$(pyenv init -)"
 ## Datasets
 
 - [BIVTatt-Dataset](https://github.com/mnicolas94/BIVTatt-Dataset/tree/master)
+- [MNIST](https://github.com/cvdfoundation/mnist)
