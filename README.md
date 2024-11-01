@@ -28,3 +28,7 @@ eval "$(pyenv init -)"
 
 - [BIVTatt-Dataset](https://github.com/mnicolas94/BIVTatt-Dataset/tree/master)
 - [MNIST](https://github.com/cvdfoundation/mnist)
+
+## References
+
+- [Titanic on Kaggle](https://www.kaggle.com/c/titanic/overview)
