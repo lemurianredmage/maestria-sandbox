@@ -18,7 +18,8 @@ env-setup:  ## Creates a new virtual environment
 	pyenv local 3.12 ; \
 	pipenv --rm ; \
 	pipenv --python 3.12 ; \
-	pipenv run python --version
+	pipenv run python --version ;\
+	pipenv install --dev
 
 .SILENT:
 .PHONY: env-setup

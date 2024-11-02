@@ -11,6 +11,8 @@ matplotlib = "*"
 numpy = "*"
 pandas = "*"
 scipy = "*"
+nltk = "*"
+urlextract = "*"
 
 [dev-packages]
 
