@@ -28,7 +28,11 @@ eval "$(pyenv init -)"
 
 - [BIVTatt-Dataset](https://github.com/mnicolas94/BIVTatt-Dataset/tree/master)
 - [MNIST](https://github.com/cvdfoundation/mnist)
+- [Titanic on Kaggle](https://www.kaggle.com/c/titanic/overview)
 
 ## References
 
-- [Titanic on Kaggle](https://www.kaggle.com/c/titanic/overview)
+- [pandas](https://pandas.pydata.org/docs/index.html#)
+- [numpy](https://numpy.org/doc/stable/index.html#)
+- [Scikit Learn](https://scikit-learn.org/stable/index.html#)
+- [Matplotlib](https://matplotlib.org/)
