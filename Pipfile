@@ -13,6 +13,8 @@ pandas = "*"
 scipy = "*"
 nltk = "*"
 urlextract = "*"
+torch = "*"
+torchvision = "*"
 
 [dev-packages]
 
