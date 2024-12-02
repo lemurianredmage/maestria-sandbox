@@ -15,6 +15,7 @@ nltk = "*"
 urlextract = "*"
 torch = "*"
 torchvision = "*"
+opencv-python = "*"
 
 [dev-packages]
 
