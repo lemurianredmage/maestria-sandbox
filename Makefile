@@ -15,9 +15,9 @@
 # 	conda env create --prefix ./env --file environment.yaml
 
 env-setup:  ## Creates a new virtual environment
-	pyenv local 3.12 ; \
+	pyenv local 3.12.2 ; \
 	pipenv --rm ; \
-	pipenv --python 3.12 ; \
+	pipenv --python 3.12.2 ; \
 	pipenv run python --version ;\
 	pipenv install --dev
 
