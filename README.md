@@ -1,4 +1,4 @@
-[![Generic badge](https://img.shields.io/badge/Python-3.12-blue.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Python-3.12.2-blue.svg)](https://shields.io/)
 
 # Tattoo Verification Project Sandbox
 
