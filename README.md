@@ -1,4 +1,4 @@
-[![Generic badge](https://img.shields.io/badge/Python-3.12.2-blue.svg)](https://shields.io/) ![Static Badge](https://img.shields.io/badge/made_with-Jupyter_Notebooks-orange)
+![Generic badge](https://img.shields.io/badge/Python-3.12.2-blue.svg) ![Static Badge](https://img.shields.io/badge/made_with-Jupyter_Notebooks-orange)
 
 # Tattoo Verification Project Sandbox
 
