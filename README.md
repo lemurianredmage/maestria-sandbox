@@ -1,3 +1,5 @@
+[![Generic badge](https://img.shields.io/badge/Python-3.12-blue.svg)](https://shields.io/)
+
 # Tattoo Verification Project Sandbox
 
 This is a sandbox for a tattoo verification project.
