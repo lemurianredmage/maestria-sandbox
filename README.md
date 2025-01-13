@@ -22,9 +22,8 @@ eval "$(pyenv init -)"
 
 ## Environment Setup
 
-- Run `which pipenv` and it should point to a path like this: **~/.pyenv/shims/pipenv** (might be different according to your machine).
 - Run `make env-setup` to setup a new environment.
-- Run `pipenv install --dev` to install all dependencies, including dev dependencies.
+- Run `pipenv install --dev` to install all dependencies, including dev dependencies (not needed if you run previous command).
 
 ## Datasets
 
