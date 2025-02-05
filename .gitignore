@@ -164,3 +164,36 @@ cython_debug/
 data/
 datasets/
 .DS_Store
+
+##### VIVADO PROJECT FILES  
+# Ignore Vivado auto-generated files
+*.jou
+*.log
+*.str
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.xpr
+*.xwbt
+*.wdb
+*.pb
+*.dcp
+*.rpx
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.tcl.bak
+*.zip
+*.tar.gz
+
+# Ignore build output
+*.bit
+*.bin
+*.mcs
+
+# Ignore Vivado database
+*.vtu*
+*.wave
