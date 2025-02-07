@@ -1,17 +1,38 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 02/06/2025 05:39:15 PM
+-- Design Name: 
+-- Module Name: P01_Ejercicio_01 - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity counter_7seg is
+entity P01_Ejercicio_01 is
     Generic ( SIMULATION_MODE : boolean := false );
     Port ( clk : in STD_LOGIC;
            reset : in STD_LOGIC;
            seg : out STD_LOGIC_VECTOR (6 downto 0);
            an : out STD_LOGIC_VECTOR (3 downto 0));
-end counter_7seg;
+end P01_Ejercicio_01;
 
-architecture Behavioral of counter_7seg is
+architecture Behavioral of P01_Ejercicio_01 is
 
     signal clk_1Hz : STD_LOGIC := '0';
     signal count : STD_LOGIC_VECTOR (3 downto 0) := "0000";

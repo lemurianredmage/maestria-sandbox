@@ -1,12 +1,33 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 02/06/2025 05:42:03 PM
+-- Design Name: 
+-- Module Name: P01_Ejercicio_01_tb - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity counter_7seg_tb is
-end counter_7seg_tb;
+entity P01_Ejercicio_01_tb is
+end P01_Ejercicio_01_tb;
 
-architecture Behavioral of counter_7seg_tb is
+architecture Behavioral of P01_Ejercicio_01_tb is
 
     signal clk : STD_LOGIC := '0';
     signal reset : STD_LOGIC := '1';
@@ -18,7 +39,7 @@ architecture Behavioral of counter_7seg_tb is
 begin
 
     -- Instantiate the DUT (Enable Simulation Mode)
-    UUT: entity work.counter_7seg
+    UUT: entity work.P01_Ejercicio_01
         generic map (SIMULATION_MODE => true) -- ? Speed Up Simulation
         port map (
             clk => clk,
