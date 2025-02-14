@@ -130,15 +130,15 @@ begin
         end case;
     end process;
 
-    -- Activattion of each of the 4 digits
+    -- Activation of each of the 4 digits
     process(active_digit)
     begin
         case active_digit is
-            when 0 => an <= "1110"; -- Turn on AN0
-            when 1 => an <= "1101"; -- Turn on AN1
-            when 2 => an <= "1011"; -- Turn on AN2
-            when 3 => an <= "0111"; -- Turn on AN3
-            when others => an <= "1111"; -- Turn off everything
+            when 0 => an <= "1110";         -- Turn on AN0
+            when 1 => an <= "1101";         -- Turn on AN1
+            when 2 => an <= "1011";         -- Turn on AN2
+            when 3 => an <= "0111";         -- Turn on AN3
+            when others => an <= "1111";    -- Turn off everything
         end case;
     end process;
 

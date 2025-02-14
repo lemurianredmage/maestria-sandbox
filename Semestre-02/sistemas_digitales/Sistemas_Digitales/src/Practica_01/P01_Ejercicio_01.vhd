@@ -9,7 +9,8 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
--- 
+--      Diseñe, simule e implemente un contador de 0 a 9, utilizando un divisor de 
+--      frecuencia de 1Hz y un solo dígito del display (apagar los otros 3 dígitos).
 -- Dependencies: 
 -- 
 -- Revision:
@@ -26,10 +27,10 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity P01_Ejercicio_01 is
     Generic ( SIMULATION_MODE : boolean := false );
-    Port ( clk : in STD_LOGIC;
-           reset : in STD_LOGIC;
-           seg : out STD_LOGIC_VECTOR (6 downto 0);
-           an : out STD_LOGIC_VECTOR (3 downto 0));
+    Port ( clk : in STD_LOGIC;                      -- 100MHz clock for Basys 3
+           reset : in STD_LOGIC;                    -- Reset button
+           seg : out STD_LOGIC_VECTOR (6 downto 0); -- 7-segment display
+           an : out STD_LOGIC_VECTOR (3 downto 0)); -- Digit activator
 end P01_Ejercicio_01;
 
 architecture Behavioral of P01_Ejercicio_01 is

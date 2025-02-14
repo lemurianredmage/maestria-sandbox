@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 02/06/2025 06:08:56 PM
+-- Create Date: 02/13/2025 06:48:21 PM
 -- Design Name: 
--- Module Name: P01_Ejercicio_02_tb - Behavioral
+-- Module Name: P01_Ejercicio_03_tb - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -24,22 +24,25 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity P01_Ejercicio_02_tb is
-end P01_Ejercicio_02_tb;
+entity P01_Ejercicio_03_tb is
+end P01_Ejercicio_03_tb;
 
-architecture Behavioral of P01_Ejercicio_02_tb is
+architecture Behavioral of P01_Ejercicio_03_tb is
+
     -- Signals to connect DUT (Device Under Test)
     signal clk_tb : STD_LOGIC := '0';
-    signal reset_tb : STD_LOGIC := '1';
+    signal reset_tb : STD_LOGIC := '0';
     signal seg_tb : STD_LOGIC_VECTOR (6 downto 0);
     signal an_tb : STD_LOGIC_VECTOR (3 downto 0);
-    
+
     -- 100 MHz -> 10 ns per cycle
     constant CLK_PERIOD : time := 10 ns;
 
 begin
+
     -- Instance of DUT
-    UUT: entity work.P01_Ejercicio_02
+    uut: entity work.P01_Ejercicio_03
+        generic map (SIMULATION_MODE => true)
         port map (
             clk => clk_tb,
             reset => reset_tb,
@@ -48,30 +51,27 @@ begin
         );
 
     -- 100 MHz clock creation
-    process
+    clk_process: process
     begin
-        while true loop
+        while now < 100 ms loop
             clk_tb <= '0';
             wait for CLK_PERIOD / 2;
             clk_tb <= '1';
             wait for CLK_PERIOD / 2;
         end loop;
+        wait;
     end process;
 
     -- Simulation process
-    process
+    stim_process: process
     begin
-        -- Init
-        wait for 50 ns;     -- Wait for simulation init
-        reset_tb <= '1';    -- Apply reset
-        wait for 100 ns;
-        reset_tb <= '0';    -- Remove reset
-
-        -- One second simulation
-        wait for 1 sec;
-
-        -- Finish simulation
-        assert false report "Simulation finished" severity failure;
+        reset_tb <= '1';
+        wait for 20 ns;
+        reset_tb <= '0';
+        wait for 100 ms;
+        report "Simulation Finished!" severity note;
+        wait;
     end process;
 
 end Behavioral;
+
