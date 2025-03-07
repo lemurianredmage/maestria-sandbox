@@ -9,10 +9,10 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
---      Diseñe, simule e implemente un contador de 0000 a 9999, utilizando un divisor 
+--      Diseï¿½e, simule e implemente un contador de 0000 a 9999, utilizando un divisor 
 --      de frecuencia de X Hz. Para definir la frecuencia (X) del divisor, investigar el 
 --      rango de frecuencia que percibe el ojo y elija una de esas frecuencias para el 
---      conteo (la más rápida en donde las unidades de millar y centenas sean perceptibles).
+--      conteo (la mï¿½s rï¿½pida en donde las unidades de millar y centenas sean perceptibles).
 --
 -- Dependencies: 
 -- 
@@ -54,13 +54,13 @@ architecture Behavioral of P01_Ejercicio_02 is
 
 begin
     -- Frequency divisor process
-    process (clk)
+    process (clk, reset)
     begin
-        if rising_edge(clk) then
-            if reset = '1' then
-                counter <= 0;
-                clk_50Hz <= '0';
-            elsif counter = MAX_COUNT - 1 then
+        if reset = '1' then
+            counter <= 0;
+            clk_50Hz <= '0';
+        elsif rising_edge(clk) then
+            if counter = MAX_COUNT - 1 then
                 counter <= 0;
                 clk_50Hz <= not clk_50Hz;
             else
@@ -70,12 +70,12 @@ begin
     end process;
 
     -- Counter processor 0000-9999
-    process (clk_50Hz)
+    process (clk_50Hz, reset)
     begin
-        if rising_edge(clk_50Hz) then
-            if reset = '1' then
-                count <= (others => '0');
-            elsif count = "1001100110011001" then -- 9999
+        if reset = '1' then
+            count <= (others => '0');
+        elsif rising_edge(clk_50Hz) then
+            if count = "1001100110011001" then -- 9999
                 count <= "0000000000000000";
             else
                 count <= count + 1;
