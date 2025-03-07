@@ -9,9 +9,9 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
---      Diseñe, simule e implemente un letrero digital en el display, el mensaje debe 
+--      Diseï¿½e, simule e implemente un letrero digital en el display, el mensaje debe 
 --      contener al menos 3 palabras y debe desplazarse a la izquierda, una vez que se 
---      imprima la última palabra el mensaje debe volver a imprimirse, elija la 
+--      imprima la ï¿½ltima palabra el mensaje debe volver a imprimirse, elija la 
 --      frecuencia apropiada para el desplazamiento.
 -- Dependencies: 
 -- 
@@ -42,9 +42,9 @@ architecture Behavioral of P01_Ejercicio_03 is
     -- Message encoded as 16 characters (use blank spaces for alignment)
     type message_array is array (0 to 15) of STD_LOGIC_VECTOR(3 downto 0);
     constant MESSAGE : message_array := (
-        "0001", "0100", "1100", "1100", "1111",     -- "HELLO"
-        "1111", "0100", "0111", "0001",             -- "FPGA"
-        "1100", "1111", "0100", "0111", "0000",     -- "WORLD"
+        "0001", "0010", "0011", "0100", "0101",     -- "HELLO"
+        "0110", "0111", "1000", "1001",             -- "FPGA"
+        "1010", "1011", "1100", "1101", "1110",     -- "WORLD"
         "0000", "0000"                              -- (Blank space for looping effect)
     );
 
@@ -91,20 +91,20 @@ begin
     begin
         case MESSAGE(position) is
             when "0000" => seg <= "1000000"; -- 0
-            when "0001" => seg <= "1111001"; -- H
-            when "0010" => seg <= "0100100"; -- E
-            when "0011" => seg <= "0110000"; -- L
-            when "0100" => seg <= "0011001"; -- L
-            when "0101" => seg <= "0010010"; -- O
-            when "0110" => seg <= "0000010"; -- F
-            when "0111" => seg <= "1111000"; -- P
-            when "1000" => seg <= "0000000"; -- G
-            when "1001" => seg <= "0010000"; -- A
-            when "1010" => seg <= "1111001"; -- W
-            when "1011" => seg <= "1111110"; -- O
+            when "0001" => seg <= "0001001"; -- H
+            when "0010" => seg <= "0000110"; -- E
+            when "0011" => seg <= "1000111"; -- L
+            when "0100" => seg <= "1000111"; -- L
+            when "0101" => seg <= "1000000"; -- O
+            when "0110" => seg <= "0001110"; -- F
+            when "0111" => seg <= "0001100"; -- P
+            when "1000" => seg <= "0000010"; -- G
+            when "1001" => seg <= "0001000"; -- A
+            when "1010" => seg <= "0000001"; -- W
+            when "1011" => seg <= "1000000"; -- O
             when "1100" => seg <= "0001000"; -- R
-            when "1101" => seg <= "0000011"; -- L
-            when "1110" => seg <= "0100000"; -- D
+            when "1101" => seg <= "1000111"; -- L
+            when "1110" => seg <= "1000000"; -- D
             when others => seg <= "1111111"; -- (Blank)
         end case;
     end process;
