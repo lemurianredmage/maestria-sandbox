@@ -23,6 +23,9 @@ class BaseMethod:
                 value = self.maxDomainValue
             elif value < self.minDomainValue:
                 value = self.minDomainValue
+
+            return value
+        return [TweakValue(value) for value in S]
     
     def RandomSolution(self, numbers):
         return [random.uniform(self.minDomainValue, self.maxDomainValue) for _ in range(numbers)]
@@ -121,10 +124,43 @@ class BaseMethod:
         
         return Best, list_convergence
     
-    def HillClimbingWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, number_of_tweeks, maximize=True):
-        pass
+    def HillClimbingWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
+        list_convergence = []
 
-    def SimmulatedAnneling(self, func, maxStep, number_of_executions, number_of_dimensions, number_of_tweeks, temperature, temperatureDecrease, maximize=True):
+        T = self.RandomInterval(intervals, 100)
+
+        S = self.RandomSolution(number_of_dimensions)
+        S_Quality = self.Quality(S, func)
+
+        Best = S
+        Best_Quality = S_Quality
+
+        while(number_of_executions > 0):
+            time = T[random.randint(0, 100 - 1)]
+
+            while(time > 0):
+                R = self.Tweak(S, maxStep)
+                R_Quality = self.Quality(R, func)
+
+                if (maximize and R_Quality > S_Quality) or (not maximize and R_Quality < S_Quality):
+                    S = R[:]
+                    S_Quality = R_Quality
+
+                time -= 1
+                number_of_executions -= 1
+
+                list_convergence.append(func(Best))
+
+                if (number_of_executions <= 0):
+                    break
+
+            if (maximize and S_Quality > Best_Quality) or (not maximize and S_Quality < Best_Quality):
+                Best = S[:]
+                Best_Quality = S_Quality
+        
+        return Best, list_convergence
+
+    def SimmulatedAnneling(self, func, maxStep, number_of_executions, number_of_dimensions, temperature, temperatureDecrease, maximize=True):
         list_convergence = []
 
         S = self.RandomSolution(number_of_dimensions)
@@ -161,9 +197,57 @@ class BaseMethod:
 
         return Best, list_convergence
     
-    def IteratedLocalSearchWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, number_of_tweeks, maximize=True):
-        pass
+    def IteratedLocalSearchWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
+        list_convergence = []
+
+        T = self.RandomInterval(intervals, 100)
+
+        S = self.RandomSolution(number_of_dimensions)
+        S_Quality = self.Quality(S, func)
+
+        H = S
+        H_Quality = S_Quality
+
+        Best = S
+        Best_Quality = S_Quality
+
+        while(number_of_executions > 0):
+            time = T[random.randint(0, 100 - 1)]
+
+            while(time > 0):
+                R = self.Tweak(S, maxStep)
+                R_Quality = self.Quality(R, func)
+
+                if (maximize and R_Quality > S_Quality) or (not maximize and R_Quality < S_Quality):
+                    S = R[:]
+                    S_Quality = R_Quality
+
+                time -= 1
+                number_of_executions -= 1
+
+                list_convergence.append(func(Best))
+
+                if (number_of_executions <= 0):
+                    break
+
+            if (maximize and S_Quality > Best_Quality) or (not maximize and S_Quality < Best_Quality):
+                Best = S[:]
+                Best_Quality = S_Quality
+
+            H, H_Quality = self.NewHomeBase(S, S_Quality, H, H_Quality)
+            S = self.Perturb(H)
+        
+        return Best, list_convergence
     
-    def perturb(self, S):
+    def RandomInterval(no_improvement_count, base_T):
+        return max(10, base_T - no_improvement_count // 10)
+    
+    def Perturb(self, S):
         return self.Tweak(S, self.maxDomain)
+        
+    def NewHomeBase(S, S_Quality, H, H_Quality):
+        if S_Quality > H_Quality:
+            return S, S_Quality
+        else:
+            return H, H_Quality
 
