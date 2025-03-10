@@ -37,7 +37,7 @@ class BaseMethod:
             return self.RandomValue(xmin, xmax)
         return [TweakValue(value) for value in S]
     
-    def RandomValue(min, max):
+    def RandomValue(self, min, max):
         return random.uniform(min, max)
     
     def RandomSolution(self, numbers):
@@ -61,7 +61,7 @@ class BaseMethod:
         
         return S, list_convergence
     
-    def SteepestAscentHillClimbing(self, func, maxStep, number_of_excecutions, number_of_dimensions, number_of_tweeks, maximize=True):
+    def SteepestAscentHillClimbing(self, func, maxStep, number_of_excecutions, number_of_dimensions, number_of_tweaks, maximize=True):
         list_convergence = []
 
         S = self.RandomSolution(number_of_dimensions)
@@ -71,7 +71,7 @@ class BaseMethod:
             R = self.Tweak(S, maxStep)
             R_Quality = self.Quality(R, func)
 
-            for t in range(number_of_tweeks):
+            for t in range(number_of_tweaks):
                 W = self.Tweak(S, maxStep)
                 W_Quality = self.Quality(W, func)
 
@@ -87,7 +87,7 @@ class BaseMethod:
 
         return S, list_convergence
     
-    def SteepestAscentHillClimbingWithReplacement(self, func, maxStep, number_of_excecutions, number_of_dimensions, number_of_tweeks, maximize=True):
+    def SteepestAscentHillClimbingWithReplacement(self, func, maxStep, number_of_excecutions, number_of_dimensions, number_of_tweaks, maximize=True):
         list_convergence = []
 
         S = self.RandomSolution(number_of_dimensions)
@@ -100,7 +100,7 @@ class BaseMethod:
             R = self.Tweak(S, maxStep)
             R_Quality = self.Quality(R, func)
 
-            for t in range(number_of_tweeks):
+            for t in range(number_of_tweaks):
                 W = self.Tweak(S, maxStep)
                 W_Quality = self.Quality(W, func)
 
@@ -119,7 +119,7 @@ class BaseMethod:
 
         return Best, list_convergence
 
-    def RandomSearch(self, func, maxStep, number_of_executions, number_of_dimensions, number_of_tweeks, maximize=True):
+    def RandomSearch(self, func, number_of_executions, number_of_dimensions, maximize=True):
         list_convergence = []
         
         Best = self.RandomSolution(number_of_dimensions)
