@@ -49,24 +49,27 @@ class Experiment:
             'maximize': False
         }]
 
-        stats = Experiment.concat_stats(parameter_list, base())
+        stats = Experiment.concat_stats(parameter_list)
         fileName = 'one_dimension'
         stats.to_csv(f'{fileName}.csv', index=False)
 
+        return stats
+
     @staticmethod
-    def concat_stats(parameter_list, method_instance: base):
+    def concat_stats(parameter_list):
         stats = []
         for experiment_data in parameter_list:
+            method_instance = base(minDomainValue=experiment_data['minDomainValue'], maxDomainValue=experiment_data['maxDomainValue'])
             hillClimbingResults, hillClimbingConvergenceList = method_instance.HillClimbing(
-                experiment_data.func,
-                experiment_data.maxStep,
-                experiment_data.number_experiments,
-                experiment_data.number_of_dimensions,
-                experiment_data.maximize
+                experiment_data['func'],
+                experiment_data['maxStep'],
+                experiment_data['number_experiments'],
+                experiment_data['number_of_dimensions'],
+                experiment_data['maximize']
             )
 
             stats.append({
-                'func': experiment_data.func,
+                'func': experiment_data['func'],
                 'hyperparameters': experiment_data,
                 'best_result': hillClimbingResults,
                 'convergence_list': hillClimbingConvergenceList
