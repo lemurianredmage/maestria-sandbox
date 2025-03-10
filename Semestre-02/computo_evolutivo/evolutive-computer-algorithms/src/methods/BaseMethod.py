@@ -11,21 +11,34 @@ class BaseMethod:
     
     def Tweak(self, S, maxStep):
         def TweakValue(value):
-            prob = random.uniform(0, 1)
-            number = random.uniform(0, maxStep)
+            xmax = value + maxStep
+            xmin = value - maxStep
 
-            if prob > 2/3:
-                value += number
-            elif prob > 1/3 and prob < 2/3:
-                value -= number
+            if xmax >= self.maxDomainValue:
+                xmax = self.maxDomainValue
+            if xmin <= self.minDomainValue:
+                xmin = self.minDomainValue
 
-            if value > self.maxDomainValue:
-                value = self.maxDomainValue
-            elif value < self.minDomainValue:
-                value = self.minDomainValue
+            # prob = random.uniform(0, 1)
+            # number = random.uniform(0, maxStep)
 
-            return value
+            # if prob > 2/3:
+            #     value += number
+            # elif prob > 1/3 and prob < 2/3:
+            #     value -= number
+
+            # if value > self.maxDomainValue:
+            #     value = self.maxDomainValue
+            # elif value < self.minDomainValue:
+            #     value = self.minDomainValue
+
+            # return value
+
+            return self.RandomValue(xmin, xmax)
         return [TweakValue(value) for value in S]
+    
+    def RandomValue(min, max):
+        return random.uniform(min, max)
     
     def RandomSolution(self, numbers):
         return [random.uniform(self.minDomainValue, self.maxDomainValue) for _ in range(numbers)]
@@ -127,7 +140,7 @@ class BaseMethod:
     def HillClimbingWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
         list_convergence = []
 
-        T = self.RandomInterval(intervals, 100)
+        # T = self.RandomValue(intervals, 100)
 
         S = self.RandomSolution(number_of_dimensions)
         S_Quality = self.Quality(S, func)
@@ -136,7 +149,7 @@ class BaseMethod:
         Best_Quality = S_Quality
 
         while(number_of_executions > 0):
-            time = T[random.randint(0, 100 - 1)]
+            time = self.RandomValue(intervals, 100)
 
             while(time > 0):
                 R = self.Tweak(S, maxStep)
@@ -239,8 +252,6 @@ class BaseMethod:
         
         return Best, list_convergence
     
-    def RandomInterval(no_improvement_count, base_T):
-        return max(10, base_T - no_improvement_count // 10)
     
     def Perturb(self, S):
         return self.Tweak(S, self.maxDomain)
