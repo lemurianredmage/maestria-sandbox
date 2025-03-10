@@ -140,7 +140,7 @@ class BaseMethod:
     def HillClimbingWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
         list_convergence = []
 
-        # T = self.RandomValue(intervals, 100)
+        T = 100
 
         S = self.RandomSolution(number_of_dimensions)
         S_Quality = self.Quality(S, func)
@@ -149,7 +149,7 @@ class BaseMethod:
         Best_Quality = S_Quality
 
         while(number_of_executions > 0):
-            time = self.RandomValue(intervals, 100)
+            time = self.RandomValue(intervals[0], T)
 
             while(time > 0):
                 R = self.Tweak(S, maxStep)
@@ -213,7 +213,7 @@ class BaseMethod:
     def IteratedLocalSearchWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
         list_convergence = []
 
-        T = self.RandomInterval(intervals, 100)
+        T = 100
 
         S = self.RandomSolution(number_of_dimensions)
         S_Quality = self.Quality(S, func)
@@ -225,7 +225,7 @@ class BaseMethod:
         Best_Quality = S_Quality
 
         while(number_of_executions > 0):
-            time = T[random.randint(0, 100 - 1)]
+            time = self.RandomValue(intervals[0], T)
 
             while(time > 0):
                 R = self.Tweak(S, maxStep)
@@ -254,11 +254,14 @@ class BaseMethod:
     
     
     def Perturb(self, S):
-        return self.Tweak(S, self.maxDomain)
+        return self.Tweak(S, self.maxDomainValue)
         
-    def NewHomeBase(S, S_Quality, H, H_Quality):
+    def NewHomeBase(self, S, S_Quality, H, H_Quality):
         if S_Quality > H_Quality:
             return S, S_Quality
         else:
             return H, H_Quality
+        
+    def RandomInterval(self, intervals, max):
+        return [random.uniform(interval, max) for interval in intervals]
 

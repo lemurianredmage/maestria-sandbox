@@ -130,7 +130,6 @@ class Experiment:
                 experiment_data['maxStep'],
                 experiment_data['number_experiments'],
                 experiment_data['number_of_dimensions'],
-                experiment_data['number_of_tweaks'],
                 experiment_data['interval'],
                 experiment_data['maximize']
             )
