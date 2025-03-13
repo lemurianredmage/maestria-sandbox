@@ -69,8 +69,8 @@ class Experiment:
             'number_of_dimensions': 2,
             'number_of_tweaks': number_of_tweaks,
             'interval': interval,
-            'minDomainValue': -20,
-            'maxDomainValue': 20,
+            'minDomainValue': 0,
+            'maxDomainValue': 10,
             'temperature': 1000,
             'temperatureDecrease': 100,
             'maximize': False
@@ -82,8 +82,8 @@ class Experiment:
             'number_of_dimensions': 2,
             'number_of_tweaks': number_of_tweaks,
             'interval': interval,
-            'minDomainValue': -20,
-            'maxDomainValue': 20,
+            'minDomainValue': -5,
+            'maxDomainValue': 5,
             'temperature': 1000,
             'temperatureDecrease': 100,
             'maximize': False
@@ -124,8 +124,8 @@ class Experiment:
                 'number_of_dimensions': dimension,
                 'number_of_tweaks': number_of_tweaks,
                 'interval': interval,
-                'minDomainValue': -20,
-                'maxDomainValue': 20,
+                'minDomainValue': -5,
+                'maxDomainValue': 5,
                 'temperature': 1000,
                 'temperatureDecrease': 100,
                 'maximize': False
@@ -137,8 +137,8 @@ class Experiment:
                 'number_of_dimensions': dimension,
                 'number_of_tweaks': number_of_tweaks,
                 'interval': interval,
-                'minDomainValue': -20,
-                'maxDomainValue': 20,
+                'minDomainValue': -1,
+                'maxDomainValue': 1,
                 'temperature': 1000,
                 'temperatureDecrease': 100,
                 'maximize': False
@@ -187,7 +187,7 @@ class Experiment:
             hill_climbing_best_result, hill_climbing_convergence_list = method_instance.HillClimbing(
                 experiment_data['func'],
                 experiment_data['maxStep'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['maximize']
             )
@@ -204,7 +204,7 @@ class Experiment:
             steepest_ascent_hill_climbing_best_result, steepest_ascent_hill_climbing_convergence_list = method_instance.SteepestAscentHillClimbing(
                 experiment_data['func'],
                 experiment_data['maxStep'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['number_of_tweaks'],
                 experiment_data['maximize']
@@ -222,7 +222,7 @@ class Experiment:
             steepest_ascent_hill_climbing_with_replacement_best_result, steepest_ascent_hill_climbing_with_replacement_convergence_list = method_instance.SteepestAscentHillClimbingWithReplacement(
                 experiment_data['func'],
                 experiment_data['maxStep'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['number_of_tweaks'],
                 experiment_data['maximize']
@@ -239,7 +239,7 @@ class Experiment:
 
             random_search_best_result, random_search_convergence_list = method_instance.RandomSearch(
                 experiment_data['func'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['maximize']
             )
@@ -256,7 +256,7 @@ class Experiment:
             hill_climbing_with_random_restarts_best_result, hill_climbing_with_random_restarts_convergence_list = method_instance.HillClimbingWithRandomRestarts(
                 experiment_data['func'],
                 experiment_data['maxStep'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['interval'],
                 experiment_data['maximize']
@@ -274,7 +274,7 @@ class Experiment:
             simmulated_anneling_best_result, simmulated_anneling_convergence_list = method_instance.SimmulatedAnneling(
                 experiment_data['func'],
                 experiment_data['maxStep'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['temperature'],
                 experiment_data['temperatureDecrease'],
@@ -293,7 +293,7 @@ class Experiment:
             iterated_local_search_with_random_restarts_best_result, iterated_local_search_with_random_restarts_convergence_list = method_instance.IteratedLocalSearchWithRandomRestarts(
                 experiment_data['func'],
                 experiment_data['maxStep'],
-                experiment_data['number_experiments'],
+                experiment_data['number_of_executions'],
                 experiment_data['number_of_dimensions'],
                 experiment_data['interval'],
                 experiment_data['maximize']

@@ -140,16 +140,16 @@ class BaseMethod:
     def HillClimbingWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
         list_convergence = []
 
-        T = 100
+        T = 20
 
         S = self.RandomSolution(number_of_dimensions)
         S_Quality = self.Quality(S, func)
 
-        Best = S
+        Best = S[:]
         Best_Quality = S_Quality
 
         while(number_of_executions > 0):
-            time = self.RandomValue(intervals[0], T)
+            time = self.RandomValue(1, T)
 
             while(time > 0):
                 R = self.Tweak(S, maxStep)
@@ -189,11 +189,11 @@ class BaseMethod:
             random_number = random.randint(0, 100) / 100
 
             exponent = (R_Quality - S_Quality if maximize else S_Quality - R_Quality) / temperature
-            exponent = max(min(exponent, 700), 700)
+            exponent = max(min(exponent, 700), -700)
             exponent = round(math.e**(exponent), 2)
             condition = random_number < exponent if maximize else random_number > exponent
 
-            if (maximize and R_Quality > S_Quality) or (not maximize and R_Quality > S_Quality) or condition:
+            if (maximize and R_Quality > S_Quality) or (not maximize and R_Quality < S_Quality) or condition:
                 S = R[:]
                 S_Quality = R_Quality
 
@@ -213,19 +213,19 @@ class BaseMethod:
     def IteratedLocalSearchWithRandomRestarts(self, func, maxStep, number_of_executions, number_of_dimensions, intervals, maximize=True):
         list_convergence = []
 
-        T = 100
+        T = 20
 
         S = self.RandomSolution(number_of_dimensions)
         S_Quality = self.Quality(S, func)
 
-        H = S
+        H = S[:]
         H_Quality = S_Quality
 
-        Best = S
+        Best = S[:]
         Best_Quality = S_Quality
 
         while(number_of_executions > 0):
-            time = self.RandomValue(intervals[0], T)
+            time = self.RandomValue(1, T)
 
             while(time > 0):
                 R = self.Tweak(S, maxStep)
