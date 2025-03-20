@@ -40,7 +40,7 @@ architecture Behavioral of P01_Ejercicio_02 is
     -- Usually 50Hz is used in cinemas.
     -- 50Hz calculation for Basys 3 at 100MHz
     -- (100,000,000 / 50) = 2,000,000
-    constant MAX_COUNT : integer := 2_000_000; 
+    constant MAX_COUNT : integer := 2_000_000;
     signal counter : integer := 0;
     signal clk_50Hz : STD_LOGIC := '0';
     
@@ -71,15 +71,43 @@ begin
 
     -- Counter processor 0000-9999
     process (clk_50Hz, reset)
+        variable temp_count : STD_LOGIC_VECTOR(15 downto 0);
+        variable changed_count: boolean := false;
     begin
         if reset = '1' then
             count <= (others => '0');
         elsif rising_edge(clk_50Hz) then
-            if count = "1001100110011001" then -- 9999
-                count <= "0000000000000000";
-            else
-                count <= count + 1;
+            temp_count := count;
+            
+            if temp_count(3 downto 0) > "1001" then
+                temp_count(3 downto 0) := "0000";
+                temp_count(7 downto 4) := temp_count(7 downto 4) + 1;
+                changed_count := true;
             end if;
+            
+            if temp_count(7 downto 4) > "1001" then
+                temp_count(7 downto 4) := "0000";
+                temp_count(11 downto 8) := temp_count(11 downto 8) + 1;
+                changed_count := true;
+            end if;
+            
+            if temp_count(11 downto 8) > "1001" then
+                temp_count(11 downto 8) := "0000";
+                temp_count(15 downto 12) := temp_count(15 downto 12) + 1;
+                changed_count := true;
+            end if;
+            
+            
+            
+            if temp_count = "1001100110011001" then -- 9999
+                temp_count := "0000000000000000";
+            elsif not changed_count then
+                temp_count(3 downto 0) := temp_count(3 downto 0) + 1;
+            end if;
+            
+            changed_count := false;
+            
+            count <= temp_count;
         end if;
     end process;
 
