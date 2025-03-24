@@ -19,21 +19,6 @@ class BaseMethod:
             if xmin <= self.minDomainValue:
                 xmin = self.minDomainValue
 
-            # prob = random.uniform(0, 1)
-            # number = random.uniform(0, maxStep)
-
-            # if prob > 2/3:
-            #     value += number
-            # elif prob > 1/3 and prob < 2/3:
-            #     value -= number
-
-            # if value > self.maxDomainValue:
-            #     value = self.maxDomainValue
-            # elif value < self.minDomainValue:
-            #     value = self.minDomainValue
-
-            # return value
-
             return self.RandomValue(xmin, xmax)
         return [TweakValue(value) for value in S]
     
