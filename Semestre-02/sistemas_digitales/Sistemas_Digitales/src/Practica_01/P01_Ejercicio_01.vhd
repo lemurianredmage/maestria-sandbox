@@ -9,8 +9,8 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
---      Diseñe, simule e implemente un contador de 0 a 9, utilizando un divisor de 
---      frecuencia de 1Hz y un solo dígito del display (apagar los otros 3 dígitos).
+--      Diseï¿½e, simule e implemente un contador de 0 a 9, utilizando un divisor de 
+--      frecuencia de 1Hz y un solo dï¿½gito del display (apagar los otros 3 dï¿½gitos).
 -- Dependencies: 
 -- 
 -- Revision:
@@ -26,28 +26,24 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity P01_Ejercicio_01 is
-    Generic ( SIMULATION_MODE : boolean := false );
+    Generic ( MAX_COUNT : integer := 50_000_000);
     Port ( clk : in STD_LOGIC;                      -- 100MHz clock for Basys 3
            reset : in STD_LOGIC;                    -- Reset button
            seg : out STD_LOGIC_VECTOR (6 downto 0); -- 7-segment display
-           an : out STD_LOGIC_VECTOR (3 downto 0)); -- Digit activator
+           an : out STD_LOGIC_VECTOR (3 downto 0); -- Digit activator
+           count_out : out STD_LOGIC_VECTOR (3 downto 0));
 end P01_Ejercicio_01;
 
 architecture Behavioral of P01_Ejercicio_01 is
 
     signal clk_1Hz : STD_LOGIC := '0';
-    signal count : STD_LOGIC_VECTOR (3 downto 0) := "0000";
-
-    -- Use a signal instead of a constant
-    signal MAX_COUNT : integer;
+    
+    signal count : STD_LOGIC_VECTOR (3 downto 0);
 
     -- Counter for frequency division
     signal counter : integer := 0;
 
 begin
-
-    MAX_COUNT <= 50_000 when SIMULATION_MODE else 50_000_000;
-
     -- Frequency Divider Process
     process (clk, reset)
     begin
@@ -55,7 +51,7 @@ begin
             counter <= 0;
             clk_1Hz <= '0';
         elsif rising_edge(clk) then
-            if counter = MAX_COUNT - 1 then
+            if counter = MAX_COUNT - 1 then -- Counter must be a variable instead a signal, because signal can represent a bus in the hw
                 counter <= 0;
                 clk_1Hz <= not clk_1Hz;
             else
@@ -77,7 +73,7 @@ begin
             end if;
         end if;
     end process;
-
+    count_out <= count;
     -- 7-Segment Decoder
     process(count)
     begin
