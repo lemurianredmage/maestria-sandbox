@@ -29,10 +29,12 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity P01_Ejercicio_02 is
+    Generic ( MAX_COUNT : integer := 2_000_000);
     Port ( clk : in STD_LOGIC;                      -- 100MHz clock for Basys 3
            reset : in STD_LOGIC;                    -- Reset button
            seg : out STD_LOGIC_VECTOR (6 downto 0); -- 7-segment display
-           an : out STD_LOGIC_VECTOR (3 downto 0)); -- Digit activator
+           an : out STD_LOGIC_VECTOR (3 downto 0);
+           count_out: out STD_LOGIC_VECTOR(15 downto 0) := (others => '0')); -- Digit activator
 end P01_Ejercicio_02;
 
 architecture Behavioral of P01_Ejercicio_02 is
@@ -40,7 +42,6 @@ architecture Behavioral of P01_Ejercicio_02 is
     -- Usually 50Hz is used in cinemas.
     -- 50Hz calculation for Basys 3 at 100MHz
     -- (100,000,000 / 50) = 2,000,000
-    constant MAX_COUNT : integer := 2_000_000;
     signal counter : integer := 0;
     signal clk_50Hz : STD_LOGIC := '0';
     
@@ -110,7 +111,7 @@ begin
             count <= temp_count;
         end if;
     end process;
-
+    count_out <= count;
     -- 4-digit multiplexer
     process (clk)
     begin

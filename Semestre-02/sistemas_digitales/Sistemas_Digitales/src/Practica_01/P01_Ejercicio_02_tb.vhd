@@ -33,6 +33,7 @@ architecture Behavioral of P01_Ejercicio_02_tb is
     signal reset_tb : STD_LOGIC := '1';
     signal seg_tb : STD_LOGIC_VECTOR (6 downto 0);
     signal an_tb : STD_LOGIC_VECTOR (3 downto 0);
+    signal count_out_tb : STD_LOGIC_VECTOR(15 downto 0);
     
     -- 100 MHz -> 10 ns per cycle
     constant CLK_PERIOD : time := 10 ns;
@@ -40,12 +41,13 @@ architecture Behavioral of P01_Ejercicio_02_tb is
 begin
     -- Instance of DUT
     UUT: entity work.P01_Ejercicio_02
+        (MAX_COUNT => 500_000)
         port map (
             clk => clk_tb,
             reset => reset_tb,
             seg => seg_tb,
-            an => an_tb
-        );
+            an => an_tb,
+            count_out => count_out_tb);
 
     -- 100 MHz clock creation
     process
