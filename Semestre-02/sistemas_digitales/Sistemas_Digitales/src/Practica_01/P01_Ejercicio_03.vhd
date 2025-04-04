@@ -27,11 +27,12 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity P01_Ejercicio_03 is
-    Generic ( SIMULATION_MODE : boolean := false); 
+    Generic ( MAX_COUNT : integer := 50_000_000);
     Port ( clk : in STD_LOGIC;                      -- 100MHz clock for Basys 3
            reset : in STD_LOGIC;                    -- Reset button
            seg : out STD_LOGIC_VECTOR (6 downto 0); -- 7-segment display
-           an : out STD_LOGIC_VECTOR (3 downto 0)); -- Digit activator
+           an : out STD_LOGIC_VECTOR (3 downto 0);
+           letters_out : out STD_LOGIC_VECTOR (15 downto 0)); -- Digit activator
 end P01_Ejercicio_03;
 
 architecture Behavioral of P01_Ejercicio_03 is
@@ -53,20 +54,15 @@ architecture Behavioral of P01_Ejercicio_03 is
     -- Current Letters
     type letter_array is array (0 to 3) of STD_LOGIC_VECTOR(3 downto 0);
     signal letters: letter_array := ("1111", "1111", "1111", "1111");
-    signal letters_index : integer := 0;
 
     -- Frequency Divider
     signal counter : integer := 0;
-    signal MAX_COUNT : integer;
     
     -- 4 digits multiplexor (~1ms refresh rate)
     signal refresh_counter : integer := 0;
     signal active_digit : integer range 0 to 3 := 0;
     signal char_value : STD_LOGIC_VECTOR(3 downto 0);
 begin
-
-    MAX_COUNT <= 50_000 when SIMULATION_MODE else 50_000_000; -- Adjust speed
-
     -- Frequency Divider Process
     process (clk, reset)
     begin
@@ -89,6 +85,7 @@ begin
     begin
         if reset = '1' then
             position <= 0;
+            letters <= ("1111", "1111", "1111", "1111");
         elsif rising_edge(clk_scroll) then
             if position = 17 then
                 position <= 0;                      -- Reset message when it reaches the end
@@ -105,7 +102,10 @@ begin
             end if;
         end if;
     end process;
-    
+    letters_out(3 downto 0) <= letters(0);
+    letters_out(7 downto 4) <= letters(1);
+    letters_out(11 downto 8) <= letters(2);
+    letters_out(15 downto 12) <= letters(3);
     -- 4-digit multiplexer
     process (clk)
     begin

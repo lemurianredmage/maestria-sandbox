@@ -34,6 +34,7 @@ architecture Behavioral of P01_Ejercicio_03_tb is
     signal reset_tb : STD_LOGIC := '0';
     signal seg_tb : STD_LOGIC_VECTOR (6 downto 0);
     signal an_tb : STD_LOGIC_VECTOR (3 downto 0);
+    signal letters_out_tb : STD_LOGIC_VECTOR (15 downto 0);
 
     -- 100 MHz -> 10 ns per cycle
     constant CLK_PERIOD : time := 10 ns;
@@ -42,12 +43,13 @@ begin
 
     -- Instance of DUT
     uut: entity work.P01_Ejercicio_03
-        generic map (SIMULATION_MODE => true)
+        generic map (MAX_COUNT => 50_000) -- ? Speed Up Simulation
         port map (
             clk => clk_tb,
             reset => reset_tb,
             seg => seg_tb,
-            an => an_tb
+            an => an_tb,
+            letters_out => letters_out_tb
         );
 
     -- 100 MHz clock creation
