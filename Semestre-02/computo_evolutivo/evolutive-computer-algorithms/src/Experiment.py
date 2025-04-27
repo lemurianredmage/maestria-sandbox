@@ -2,7 +2,7 @@ from equations import Equations as eq
 from methods.BaseMethod import BaseMethod as base
 import pandas as pd
 import numpy as np
-from methods.CustomEvolutionaryAlgorithm import CustomEvolutionaryAlgorithm
+from methods.CustomBenEvolutionaryAlgorithm import CustomBenEvolutionaryAlgorithm as CustomEvolutionaryAlgorithm
 
 EVOLUTIONARY_HYPERPARAMETERS = {
     'population_size': 50,
@@ -260,130 +260,130 @@ class Experiment:
             hyperparameters = experiment_data.copy()
             del hyperparameters['func']
 
-            method_instance = base(minDomainValue=experiment_data['minDomainValue'], maxDomainValue=experiment_data['maxDomainValue'])
-            hill_climbing_best_result, hill_climbing_convergence_list = method_instance.HillClimbing(
-                experiment_data['func'],
-                experiment_data['maxStep'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['maximize']
-            )
+            # method_instance = base(minDomainValue=experiment_data['minDomainValue'], maxDomainValue=experiment_data['maxDomainValue'])
+            # hill_climbing_best_result, hill_climbing_convergence_list = method_instance.HillClimbing(
+            #     experiment_data['func'],
+            #     experiment_data['maxStep'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'hill_climbing',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': hill_climbing_convergence_list,
-                'best_result': hill_climbing_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'hill_climbing',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': hill_climbing_convergence_list,
+            #     'best_result': hill_climbing_best_result[0],
+            # })
 
-            steepest_ascent_hill_climbing_best_result, steepest_ascent_hill_climbing_convergence_list = method_instance.SteepestAscentHillClimbing(
-                experiment_data['func'],
-                experiment_data['maxStep'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['number_of_tweaks'],
-                experiment_data['maximize']
-            )
+            # steepest_ascent_hill_climbing_best_result, steepest_ascent_hill_climbing_convergence_list = method_instance.SteepestAscentHillClimbing(
+            #     experiment_data['func'],
+            #     experiment_data['maxStep'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['number_of_tweaks'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'steepest_ascent_hill_climbing',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': steepest_ascent_hill_climbing_convergence_list,
-                'best_result': steepest_ascent_hill_climbing_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'steepest_ascent_hill_climbing',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': steepest_ascent_hill_climbing_convergence_list,
+            #     'best_result': steepest_ascent_hill_climbing_best_result[0],
+            # })
 
-            steepest_ascent_hill_climbing_with_replacement_best_result, steepest_ascent_hill_climbing_with_replacement_convergence_list = method_instance.SteepestAscentHillClimbingWithReplacement(
-                experiment_data['func'],
-                experiment_data['maxStep'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['number_of_tweaks'],
-                experiment_data['maximize']
-            )
+            # steepest_ascent_hill_climbing_with_replacement_best_result, steepest_ascent_hill_climbing_with_replacement_convergence_list = method_instance.SteepestAscentHillClimbingWithReplacement(
+            #     experiment_data['func'],
+            #     experiment_data['maxStep'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['number_of_tweaks'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'steepest_ascent_hill_climbing_with_replacement',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': steepest_ascent_hill_climbing_with_replacement_convergence_list,
-                'best_result': steepest_ascent_hill_climbing_with_replacement_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'steepest_ascent_hill_climbing_with_replacement',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': steepest_ascent_hill_climbing_with_replacement_convergence_list,
+            #     'best_result': steepest_ascent_hill_climbing_with_replacement_best_result[0],
+            # })
 
-            random_search_best_result, random_search_convergence_list = method_instance.RandomSearch(
-                experiment_data['func'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['maximize']
-            )
+            # random_search_best_result, random_search_convergence_list = method_instance.RandomSearch(
+            #     experiment_data['func'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'random_search',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': random_search_convergence_list,
-                'best_result': random_search_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'random_search',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': random_search_convergence_list,
+            #     'best_result': random_search_best_result[0],
+            # })
 
-            hill_climbing_with_random_restarts_best_result, hill_climbing_with_random_restarts_convergence_list = method_instance.HillClimbingWithRandomRestarts(
-                experiment_data['func'],
-                experiment_data['maxStep'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['interval'],
-                experiment_data['maximize']
-            )
+            # hill_climbing_with_random_restarts_best_result, hill_climbing_with_random_restarts_convergence_list = method_instance.HillClimbingWithRandomRestarts(
+            #     experiment_data['func'],
+            #     experiment_data['maxStep'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['interval'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'hill_climbing_with_random_restarts',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': hill_climbing_with_random_restarts_convergence_list,
-                'best_result': hill_climbing_with_random_restarts_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'hill_climbing_with_random_restarts',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': hill_climbing_with_random_restarts_convergence_list,
+            #     'best_result': hill_climbing_with_random_restarts_best_result[0],
+            # })
 
-            simmulated_anneling_best_result, simmulated_anneling_convergence_list = method_instance.SimmulatedAnneling(
-                experiment_data['func'],
-                experiment_data['maxStep'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['temperature'],
-                experiment_data['temperatureDecrease'],
-                experiment_data['maximize']
-            )
+            # simmulated_anneling_best_result, simmulated_anneling_convergence_list = method_instance.SimmulatedAnneling(
+            #     experiment_data['func'],
+            #     experiment_data['maxStep'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['temperature'],
+            #     experiment_data['temperatureDecrease'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'simmulated_anneling',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': simmulated_anneling_convergence_list,
-                'best_result': simmulated_anneling_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'simmulated_anneling',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': simmulated_anneling_convergence_list,
+            #     'best_result': simmulated_anneling_best_result[0],
+            # })
 
-            iterated_local_search_with_random_restarts_best_result, iterated_local_search_with_random_restarts_convergence_list = method_instance.IteratedLocalSearchWithRandomRestarts(
-                experiment_data['func'],
-                experiment_data['maxStep'],
-                experiment_data['number_of_executions'],
-                experiment_data['number_of_dimensions'],
-                experiment_data['interval'],
-                experiment_data['maximize']
-            )
+            # iterated_local_search_with_random_restarts_best_result, iterated_local_search_with_random_restarts_convergence_list = method_instance.IteratedLocalSearchWithRandomRestarts(
+            #     experiment_data['func'],
+            #     experiment_data['maxStep'],
+            #     experiment_data['number_of_executions'],
+            #     experiment_data['number_of_dimensions'],
+            #     experiment_data['interval'],
+            #     experiment_data['maximize']
+            # )
 
-            stats.append({
-                'func': experiment_data['func'].__name__,
-                'method': 'iterated_local_search_with_random_restarts',
-                'hyperparameters': hyperparameters,
-                'number_of_dimensions': hyperparameters['number_of_dimensions'],
-                'convergence_list': iterated_local_search_with_random_restarts_convergence_list,
-                'best_result': iterated_local_search_with_random_restarts_best_result[0],
-            })
+            # stats.append({
+            #     'func': experiment_data['func'].__name__,
+            #     'method': 'iterated_local_search_with_random_restarts',
+            #     'hyperparameters': hyperparameters,
+            #     'number_of_dimensions': hyperparameters['number_of_dimensions'],
+            #     'convergence_list': iterated_local_search_with_random_restarts_convergence_list,
+            #     'best_result': iterated_local_search_with_random_restarts_best_result[0],
+            # })
 
             evolutionary_algorithm = CustomEvolutionaryAlgorithm(
                 fitness_function=experiment_data['func'],

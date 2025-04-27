@@ -3,7 +3,7 @@ import random
 
 class CustomBenEvolutionaryAlgorithm:
     def __init__(self, fitness_function, bounds, dimension, population_size=100,
-                 crossover_prob=0.7, mutation_prob=0.3, tournament_size=5, elitism=True, max_evals=10000):
+                 crossover_prob=0.7, mutation_prob=0.3, tournament_size=5, elitism=True, max_evals=10000, max_age=3):
         self.fitness_function = fitness_function
         self.bounds = bounds
         self.dimension = dimension
