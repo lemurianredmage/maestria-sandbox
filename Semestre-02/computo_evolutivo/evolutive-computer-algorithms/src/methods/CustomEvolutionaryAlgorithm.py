@@ -40,6 +40,36 @@ class CustomEvolutionaryAlgorithm:
             winner = min(contenders, key=lambda x: x[1])
             parents.append(winner[0])
         return parents
+    
+    def generate_offspring(self, parents):
+        offspring = []
+
+        for i in range(0, self.population_size, 2):
+            p1 = parents[i]
+            p2 = parents[(i+1) % self.population_size]
+            child1 = self.crossover(p1, p2)
+            child2 = self.crossover(p2, p1)
+            child1 = self.mutate(child1)
+            child2 = self.mutate(child2)
+            offspring.append(child1)
+            offspring.append(child2)
+        
+        return offspring
+    
+    def evaluate_different_offspring(self, offspring):
+        offspring_fitness = []
+
+        for child in offspring:
+            found = False
+            for i, p in enumerate(self.population):
+                if np.array_equal(child, p):
+                    offspring_fitness.append(self.fitness[i])
+                    found = True
+                    break
+            if not found:
+                offspring_fitness.append(self.evaluate(child))
+        
+        return offspring_fitness
 
     def crossover(self, parent1, parent2):
         if np.random.rand() < self.crossover_prob:
@@ -63,29 +93,11 @@ class CustomEvolutionaryAlgorithm:
     def run(self):
         while self.evaluations < self.max_evals:
             parents = self.select_parents()
-            offspring = []
 
-            for i in range(0, self.population_size, 2):
-                p1 = parents[i]
-                p2 = parents[(i+1) % self.population_size]
-                child1 = self.crossover(p1, p2)
-                child2 = self.crossover(p2, p1)
-                child1 = self.mutate(child1)
-                child2 = self.mutate(child2)
-                offspring.append(child1)
-                offspring.append(child2)
+            offspring = self.generate_offspring(parents)
 
             # Evaluar solo nuevos individuos distintos
-            offspring_fitness = []
-            for child in offspring:
-                found = False
-                for i, p in enumerate(self.population):
-                    if np.array_equal(child, p):
-                        offspring_fitness.append(self.fitness[i])
-                        found = True
-                        break
-                if not found:
-                    offspring_fitness.append(self.evaluate(child))
+            offspring_fitness = self.evaluate_different_offspring(offspring)
 
             self.population, self.fitness = self.survivor_selection(offspring, offspring_fitness)
 

@@ -184,6 +184,74 @@ class Experiment:
         stats.to_csv(f'{fileName}.csv', index=False)
 
         return stats
+    
+    @staticmethod
+    def experimentForMultipleDimensionsEvolutiveAlgorithm(number_of_experiments, number_of_executions, dimensions = [2, 5, 10, 100, 1000]):
+        number_of_tweaks = int(number_of_executions / 4)
+        interval = [int(number_of_executions/5), int(number_of_executions/2)]
+
+        parameter_list = []
+
+        for dimension in dimensions:
+            parameter_list = parameter_list + [{
+                'func': eq.F3,
+                'maxStep': 20,
+                'number_experiments': number_of_experiments,
+                'number_of_executions': number_of_executions,
+                'number_of_dimensions': dimension,
+                'number_of_tweaks': number_of_tweaks,
+                'interval': interval,
+                'minDomainValue': -5,
+                'maxDomainValue': 5,
+                'temperature': 1000,
+                'temperatureDecrease': 100,
+                'maximize': False
+            }, {
+                'func': eq.F4,
+                'maxStep': 20,
+                'number_experiments': number_of_experiments,
+                'number_of_executions': number_of_executions,
+                'number_of_dimensions': dimension,
+                'number_of_tweaks': number_of_tweaks,
+                'interval': interval,
+                'minDomainValue': -1,
+                'maxDomainValue': 1,
+                'temperature': 1000,
+                'temperatureDecrease': 100,
+                'maximize': False
+            }, {
+                'func': eq.F5,
+                'maxStep': 20,
+                'number_experiments': number_of_experiments,
+                'number_of_executions': number_of_executions,
+                'number_of_dimensions': dimension,
+                'number_of_tweaks': number_of_tweaks,
+                'interval': interval,
+                'minDomainValue': -10,
+                'maxDomainValue': 10,
+                'temperature': 1000,
+                'temperatureDecrease': 100,
+                'maximize': False
+            }, {
+                'func': eq.F11,
+                'maxStep': 20,
+                'number_experiments': number_of_experiments,
+                'number_of_executions': number_of_executions,
+                'number_of_dimensions': dimension,
+                'number_of_tweaks': number_of_tweaks,
+                'interval': interval,
+                'minDomainValue': -10,
+                'maxDomainValue': 10,
+                'temperature': 1000,
+                'temperatureDecrease': 100,
+                'maximize': False
+            }]
+
+        stats = Experiment.concat_stats(parameter_list)
+        fileName = 'multiple_dimensions_evolutive_algorithm'
+        stats.to_csv(f'{fileName}.csv', index=False)
+
+        return stats
 
     @staticmethod
     def concat_stats(parameter_list):
