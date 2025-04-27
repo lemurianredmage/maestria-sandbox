@@ -2,6 +2,15 @@ from equations import Equations as eq
 from methods.BaseMethod import BaseMethod as base
 import pandas as pd
 import numpy as np
+from methods.CustomEvolutionaryAlgorithm import CustomEvolutionaryAlgorithm
+
+EVOLUTIONARY_HYPERPARAMETERS = {
+    'population_size': 50,
+    'crossover_prob': 0.9,
+    'mutation_prob': 0.2,
+    'tournament_size': 3,
+    'elitism': True,
+}
 
 class Experiment:
     @staticmethod
@@ -306,6 +315,35 @@ class Experiment:
                 'number_of_dimensions': hyperparameters['number_of_dimensions'],
                 'convergence_list': iterated_local_search_with_random_restarts_convergence_list,
                 'best_result': iterated_local_search_with_random_restarts_best_result[0],
+            })
+
+            evolutionary_algorithm = CustomEvolutionaryAlgorithm(
+                fitness_function=experiment_data['func'],
+                bounds=(experiment_data['minDomainValue'], experiment_data['maxDomainValue']),
+                dimension=experiment_data['number_of_dimensions'],
+                population_size=EVOLUTIONARY_HYPERPARAMETERS['population_size'],
+                crossover_prob=EVOLUTIONARY_HYPERPARAMETERS['crossover_prob'],
+                mutation_prob=EVOLUTIONARY_HYPERPARAMETERS['mutation_prob'],
+                tournament_size=EVOLUTIONARY_HYPERPARAMETERS['tournament_size'],
+                elitism=EVOLUTIONARY_HYPERPARAMETERS['elitism'],
+                max_evals=experiment_data['number_of_executions']
+            )
+
+            _, best_fitness, history = evolutionary_algorithm.run()
+
+            convergence_list = [item[2] for item in history]
+            missing_elements = experiment_data['number_of_executions'] - len(convergence_list)
+
+            if missing_elements > 0:
+                convergence_list += [convergence_list[-1]] * missing_elements
+
+            stats.append({
+                'func': experiment_data['func'].__name__,
+                'method': 'evolutive',
+                'hyperparameters': hyperparameters,
+                'number_of_dimensions': hyperparameters['number_of_dimensions'],
+                'convergence_list': [item[2] for item in history],
+                'best_result': best_fitness,
             })
         
         stats = pd.DataFrame(stats)
