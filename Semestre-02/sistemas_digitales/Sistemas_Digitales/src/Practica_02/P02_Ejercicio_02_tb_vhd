@@ -1,0 +1,97 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 04.05.2025 19:01:33
+-- Design Name: 
+-- Module Name: ds_practice_2_part_2_tb - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity tb_ds_practice_crosswalk is
+end entity;
+
+architecture tb of tb_ds_practice_crosswalk is
+    -- Constants
+    constant CLK_PERIOD : time := 10 ns; -- 100 MHz
+
+    -- Component under test (CUT) signals
+    signal clk         : std_logic := '0';
+    signal rst         : std_logic := '1';
+    signal btn_ped     : std_logic := '0';
+
+    signal eo_green    : std_logic;
+    signal eo_yellow   : std_logic;
+    signal eo_red      : std_logic;
+
+    signal ns_green    : std_logic;
+    signal ns_yellow   : std_logic;
+    signal ns_red      : std_logic;
+
+begin
+    -- Clock generation
+    clk_process : process
+    begin
+        while true loop
+            clk <= '0';
+            wait for CLK_PERIOD / 2;
+            clk <= '1';
+            wait for CLK_PERIOD / 2;
+        end loop;
+    end process;
+
+    -- Instantiate the DUT
+    uut: entity work.ds_practice_crosswalk
+        generic map (
+            MAX_COUNT => 50_000  -- Faster simulation: 100 cycles = 1Hz (1μs period)
+        )
+        port map (
+            clk         => clk,
+            rst         => rst,
+            btn_ped     => btn_ped,
+            eo_green    => eo_green,
+            eo_yellow   => eo_yellow,
+            eo_red      => eo_red,
+            ns_green    => ns_green,
+            ns_yellow   => ns_yellow,
+            ns_red      => ns_red
+        );
+
+    -- Stimulus process
+    stim_proc : process
+    begin
+        -- Initial reset
+        wait for 100 ns;
+        rst <= '0';
+
+        -- Wait in initial state for 5 simulated seconds
+        wait for 5 ms;
+
+        -- Simulate pedestrian request
+        btn_ped <= '1';
+        wait for 2 ms;
+        btn_ped <= '0';
+
+        -- Let simulation run long enough to see full cycle
+        wait for 60 ms;
+
+        -- Stop simulation
+        assert false report "Simulation finished." severity failure;
+    end process;
+
+end architecture;
