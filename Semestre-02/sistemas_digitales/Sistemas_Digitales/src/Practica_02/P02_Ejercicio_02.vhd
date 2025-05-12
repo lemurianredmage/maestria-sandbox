@@ -37,12 +37,13 @@ use ieee.numeric_std.all;
 
 entity ds_practice_crosswalk is
     generic (
-        MAX_COUNT : integer := 50_000 -- 1Hz (suponiendo reloj 100 MHz)
+        MAX_COUNT : integer := 50_000_000 -- 1Hz (suponiendo reloj 100 MHz)
     );
     port(
         clk         : in std_logic;
         rst         : in std_logic;
         btn_ped     : in std_logic; -- botón de cruce peatonal
+        led_ped     : out std_logic; -- led de cruce peatonal
 
         -- Semáforo EO
         eo_green    : out std_logic;
@@ -108,6 +109,12 @@ begin
                 ped_request <= '1';
             elsif current_state = S_INIT and ped_request = '1' then
                 ped_request <= '0';
+            end if;
+            
+            if btn_ped = '1' then
+                led_ped <= '1';
+            else
+                led_ped <= '0';
             end if;
         end if;
     end process;

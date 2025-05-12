@@ -32,8 +32,9 @@ architecture tb of tb_ds_practice_crosswalk is
 
     -- Component under test (CUT) signals
     signal clk         : std_logic := '0';
-    signal rst         : std_logic := '1';
+    signal rst         : std_logic := '0';
     signal btn_ped     : std_logic := '0';
+    signal led_ped     : std_logic := '0';
 
     signal eo_green    : std_logic;
     signal eo_yellow   : std_logic;
@@ -58,12 +59,13 @@ begin
     -- Instantiate the DUT
     uut: entity work.ds_practice_crosswalk
         generic map (
-            MAX_COUNT => 50_000  -- Faster simulation: 100 cycles = 1Hz (1μs period)
+            MAX_COUNT => 50_000
         )
         port map (
             clk         => clk,
             rst         => rst,
             btn_ped     => btn_ped,
+            led_ped     => led_ped,
             eo_green    => eo_green,
             eo_yellow   => eo_yellow,
             eo_red      => eo_red,
